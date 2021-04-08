@@ -1,0 +1,24 @@
+<div class="mdc-card theme-card theme-card__padded">
+  <table-component
+    [allowAdd]="true"
+    [allowDelete]="true"
+    [deleteCallback]="delete"
+    [headers]="headers"
+    [data]="bloc.users"
+    [trigger]="goTo">
+    <template let-d>
+      <td class="table__id">
+        {{ d.id }}
+      </td>
+      <td class="table__name">
+        {{ d.username }}
+      </td>
+      <td class="table__name">
+        {{ d.firstName }}
+      </td>
+      <td class="table__name">
+        {{ d.lastName }}
+      </td>
+    </template>
+  </table-component>
+</div>

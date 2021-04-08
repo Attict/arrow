@@ -1,0 +1,66 @@
+<form *ngIf="bloc.archetype != null && form != null" [ngFormModel]="form">
+  <div class="mdc-card theme-card theme-card__padded">
+    <!--
+      TOP
+    -->
+    <div class="theme-card__top">
+      <!-- Left -->
+      <div class="theme-card__top-actions__left">
+        <material-button icon materialTooltip="Help">
+          <material-icon icon="info"></material-icon>
+        </material-button>
+      </div>
+      <!-- Right -->
+      <div class="theme-card__top-actions__right">
+        <div>
+          <material-button raised class="red"
+            *ngIf="bloc.archetype.id != null"
+            (trigger)="delete()">Delete</material-button>
+          <material-button raised class="blue"
+            [disabled]="form.invalid"
+            (trigger)="save()">Save</material-button>
+        </div>
+      </div>
+    </div>
+
+    <!--
+      CONTENT
+    -->
+    <div class="theme-card__content">
+      <!-- Name -->
+      <div class="form-item">
+        <material-input floatingLabel
+          type="text"
+          label="Name"
+          leadingGlyph="label"
+          formControlName="name"
+          ngControl="name"></material-input>
+      </div>
+
+      <!-- Description -->
+      <div class="form-item">
+        <material-input floatingLabel multiline
+          rows="2"
+          label="Description"
+          leadingGlyph="label"
+          formControlName="desc"
+          ngControl="desc"></material-input>
+      </div>
+
+      <!-- Class -->
+      <h3>Class</h3>
+      <div class="form-item">
+        <material-dropdown-select
+          popupMaxWidth="100%"
+          [buttonText]="className ?? 'Select Class'">
+          <material-select-dropdown-item
+            *ngFor="let c of bloc.classes"
+            (trigger)="bloc.archetype.classId = c.id">
+            {{c.name}}
+          </material-select-dropdown-item>
+        </material-dropdown-select>
+      </div>
+
+    </div>
+  </div>
+</form>

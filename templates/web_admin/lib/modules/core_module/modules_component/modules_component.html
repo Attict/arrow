@@ -1,0 +1,18 @@
+<div class="mdc-card theme-card theme-card__padded">
+  <table-component
+    [headers]="headers"
+    [data]="bloc.modules"
+    [trigger]="goTo">
+    <template let-d>
+      <td class="table__id">
+        {{ d.id }}
+      </td>
+      <td class="table__name">
+        {{ d.label }}
+      </td>
+      <td class="table__name">
+        {{ d.enabled }}
+      </td>
+    </template>
+  </table-component>
+</div>

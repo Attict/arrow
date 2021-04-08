@@ -1,0 +1,81 @@
+<form *ngIf="bloc.user != null && form != null" [ngFormModel]="form">
+  <div class="mdc-card theme-card theme-card__padded">
+    <!--
+      TOP
+    -->
+    <div class="theme-card__top">
+      <!-- Left -->
+      <div class="theme-card__top-actions__left">
+        <material-button icon materialTooltip="Help">
+          <material-icon icon="info"></material-icon>
+        </material-button>
+      </div>
+      <!-- Right -->
+      <div class="theme-card__top-actions__right">
+        <div>
+          <material-button raised class="red"
+            *ngIf="bloc.id != null"
+            (trigger)="delete()">Delete</material-button>
+          <material-button raised class="blue"
+            [disabled]="form.invalid"
+            (trigger)="save()">Save</material-button>
+        </div>
+      </div>
+    </div>
+
+    <!--
+      CONTENT
+    -->
+    <div class="theme-card__content">
+      <!-- ID -->
+      <div class="form-item" *ngIf="bloc.user.id != null">
+        <span>ID: {{bloc.user.id}}</span>
+      </div>
+
+      <!-- Username -->
+      <div class="form-item">
+        <material-input floatingLabel
+          type="text"
+          label="Username"
+          leadingGlyph="label"
+          formControlName="username"
+          ngControl="username"></material-input>
+      </div>
+
+      <!-- Class -->
+      <h3>Group</h3>
+      <div class="form-item">
+        <material-dropdown-select
+          popupMaxWidth="100%"
+          [buttonText]="bloc.user.group?.label ?? 'Select Group'">
+          <material-select-dropdown-item
+            *ngFor="let g of bloc.groups"
+            (trigger)="bloc.user.group = g">
+            {{g.label}}
+          </material-select-dropdown-item>
+        </material-dropdown-select>
+      </div>
+
+      <!-- First Name -->
+      <div class="form-item">
+        <material-input floatingLabel
+          type="text"
+          label="First Name"
+          leadingGlyph="label"
+          formControlName="firstName"
+          ngControl="firstName"></material-input>
+      </div>
+
+      <!-- Last Name -->
+      <div class="form-item">
+        <material-input floatingLabel
+          type="text"
+          label="Last Name"
+          leadingGlyph="label"
+          formControlName="lastName"
+          ngControl="lastName"></material-input>
+      </div>
+
+    </div>
+  </div>
+</form>

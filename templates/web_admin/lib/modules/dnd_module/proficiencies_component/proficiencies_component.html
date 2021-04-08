@@ -1,0 +1,35 @@
+<div class="mdc-card theme-card theme-card__padded">
+  <div class="theme-card__top">
+    <material-input #filterInput
+      leadingGlyph="filter_list"
+      label="Filter"
+      type="text"></material-input>
+    <!-- BUTTON -->
+    <material-button class="blue" [routerLink]="goTo()" raised>
+      Add Proficiency
+    </material-button>
+  </div>
+
+  <table class="theme-table">
+    <thead>
+      <tr>
+        <th (click)="sort('id')">ID</th>
+        <th (click)="sort('name')">Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let p of bloc.proficiencies | filterPipe: filter | sortPipe: sortField: sortDir"
+        [routerLink]="goTo(p.id)">
+        <td>
+          {{ p.id }}
+        </td>
+        <td>
+          {{ p.name }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+

@@ -1,0 +1,70 @@
+///
+/// theme.scss
+/// ~~~~~~~~~~
+///
+/// Author:             Eric Wagner <eric.wagner@kapioshealth.com>
+/// Created On:         December 17, 2019
+/// Last Modified:      December 18, 2019
+///
+@import 'package:angular_components/app_layout/layout',
+        'package:angular_components/app_layout/mixins',
+        'package:angular_components/css/material/material',
+        'package:angular_components/css/mdc_web/card/mdc-card',
+        'package:angular_components/material_button/mixins',
+        'package:angular_components/material_checkbox/mixins',
+        'package:angular_components/material_input/mixins',
+        'package:angular_components/material_progress/mixins',
+        'package:angular_components/material_spinner/mixins',
+        'package:angular_components/material_select/mixins';
+
+$blue-300: #5A97AE;
+$blue-500: #3A778E;
+$blue-700: #1A577E;
+
+$green-100: #f8fffc;
+$green-300: #c8ffdc;
+$green-500: #a8ffbc;
+$green-700: #78cf8c;
+$green-900: #488f4c;
+
+$red-100: #ff6e6e;
+$red-300: #ef5e5e;
+$red-500: #df4e4e;
+$red-700: #cf3e3e;
+$red-900: #bf2e2e;
+
+$dark-bg-100: #cecfcf;
+$dark-bg-300: #777979;
+$dark-bg-500: #555656;
+$dark-bg-700: #333434;
+
+@mixin colorize($selector, $color) {
+  $raised: $selector + '[raised]';
+  @include button-background-color($raised, $color);
+  @include button-color($raised, #ffffff !important);
+
+  $not-raised: $selector + ':not([raised])';
+  @include button-color($not-raised, $color);
+}
+
+// Default Material
+@include icon-button-color("material-button", rgba(0,0,0,0.6));
+
+// Blue Material
+@include colorize("material-button.blue", $blue-500);
+@include colorize("material-fab.blue", $blue-500);
+
+// Red material
+@include colorize("material-button.red", $red-500);
+@include colorize("material-fab.red", $red-500);
+@include icon-button-color("material-button.red", $red-700);
+
+// Green Material
+@include colorize("material-fab.green", $green-500);
+@include colorize("material-button.green", $green-500);
+
+.material-header {
+  @include icon-button-color("material-button", $mat-white);
+}
+
+@include material-input-theme($blue-500);

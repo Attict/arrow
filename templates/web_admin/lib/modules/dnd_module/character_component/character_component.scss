@@ -1,0 +1,132 @@
+.top {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 25px;
+}
+material-input,
+material-dropdown-select {
+  margin: 0 15px 15px 0;
+}
+
+h3 {
+  margin: 0 0 10px;
+}
+
+.basic {
+  material-input,
+  material-dropdown-select {
+    width: calc(50% - 15px);
+    min-width: 300px;
+  }
+  material-dropdown-select {
+    &:first-of-type {padding: 15px 0 22px 0;}
+    &:last-of-type {padding: 22px 0 15px 0;}
+  }
+}
+
+/**
+ * RACE
+ */
+.race {
+  material-dropdown-select {
+    width: 100%;
+  }
+
+  .race-details {
+    div {
+      padding: 15px;
+    }
+  }
+
+  .race-description {
+    background: #eaeaea;
+  }
+
+  .race-attributes {
+    span {
+      margin: 0 10px;
+    }
+  }
+}
+
+/**
+ * CLASS
+ */
+.class {
+  material-dropdown-select {
+    width: 100%;
+  }
+  .class-details {
+    div {
+      padding: 15px;
+    }
+  }
+  .class-description {
+    background: #eaeaea;
+  }
+}
+
+/**
+ * BACKGROUND
+ */
+.background {
+  material-dropdown-select {
+    width: 100%;
+  }
+  .background-details {
+    div {
+      padding: 15px;
+    }
+  }
+  .background-description {
+    background: #eaeaea;
+  }
+
+  .background-skills {
+    span {
+      margin: 0 10px;
+    }
+  }
+}
+
+.attributes {
+  material-input,
+  span {
+    margin: 0 10px;
+    width: 75px;
+  }
+}
+
+.personality {
+  material-input {
+    width: 100%;
+  }
+}
+
+.story {
+  material-input {
+    width: 100%;
+  }
+}
+
+///
+/// equip
+///
+///
+.equip {
+  ///
+  /// equip-weapons
+  ///
+  ///
+  .equip-weapons {
+    padding: 0 0 25px;
+
+    .equip-weapons__equipped {
+      align-items: center;
+      display: flex;
+    }
+  }
+
+}
+

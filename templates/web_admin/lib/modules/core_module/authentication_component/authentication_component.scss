@@ -1,0 +1,49 @@
+@import 'package:web_admin/theme';
+
+:host {
+  @include material-input-theme(rgba(255, 255, 255, 1.0));
+  @include material-input-unfocused-underline-color(rgba(255, 255, 255, 0.25) !important);
+  @include input-label-color(rgba(255, 255, 255, 0.25));
+  @include material-checkbox-color(rgba(255, 255, 255, 1.0));
+}
+
+.authentication {
+  align-items: center;
+  background: $blue-700;
+  color: #ffffff; // $white
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
+
+  form {
+    align-items: center;
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 0 0 50px;
+  }
+
+  &.blur form {
+    filter: blur(2px);
+  }
+
+  .authentication-logo {
+    background: url('/assets/images/logo.png') no-repeat center;
+    height: 200px;
+    width: 200px;
+  }
+
+  .authentication-actions {
+    padding: 25px 0;
+  }
+
+  a {
+    cursor: pointer;
+    font-size: 0.85em;
+    line-height: 3em;
+  }
+
+  material-checkbox, material-button {
+    margin: 5px 0;
+  }
+} // authentication

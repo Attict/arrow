@@ -1,0 +1,30 @@
+///
+/// theme.scss
+/// ~~~~~~~~~~
+///
+/// Copyright (c) 2019+ Attict.net
+///
+/// Author:             Eric Wagner <eric@attict.net>
+/// Created On:         May 17, 2019
+/// Last Modified:      May 17, 2019
+///
+
+$red-300: #ff6e6e;
+$red-500: #df4e4e;
+$red-700: #bf2e2e;
+$red-900: #9f0e0e;
+
+$blue-300: #7e8ecf;
+$blue-500: #5e6eaf;
+$blue-700: #3e4e8f;
+
+$green-300: #b8ffcc;
+$green-500: #a8ffbc;
+$green-700: #78cf8c;
+$green-900: #488f4c;
+
+$primary: $red-500;
+
+.theme__opacity-zero {
+  opacity: 0;
+}

@@ -1,0 +1,34 @@
+<div class="authentication">
+  <form #authenticationForm="ngForm"
+    name="authenticationForm"
+    (keydown.enter)="authenticate()">
+    <!-- LOGO -->
+    <div class="authentication-logo"></div>
+
+    <!-- USERNAME -->
+    <material-input [(ngModel)]="bloc.authentication.username"
+      label="Username"></material-input>
+
+    <!-- PASSWORD -->
+    <material-input [(ngModel)]="bloc.authentication.password"
+      label="Password" type="password"></material-input>
+
+    <!-- ACTIONS -->
+    <div class="authentication-actions">
+      <material-button
+        (trigger)="authenticate()">Login</material-button>
+      <material-button>Register</material-button>
+    </div>
+
+    <!-- REMEMBER ME -->
+    <material-checkbox label="Remember Me"></material-checkbox>
+
+    <!-- HELP -->
+    <material-button>
+      Forgot Password
+    </material-button>
+    <material-button>
+      Need Help?
+    </material-button>
+  </form>
+</div>

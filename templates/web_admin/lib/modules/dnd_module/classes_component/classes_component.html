@@ -1,0 +1,35 @@
+<div class="mdc-card theme-card theme-card__padded">
+  <div class="theme-card__top">
+    <material-input #filterInput
+      leadingGlyph="filter_list"
+      label="Filter"
+      type="text"></material-input>
+    <!-- BUTTON -->
+    <material-button class="blue" [routerLink]="goTo()" raised>
+      Add Class
+    </material-button>
+  </div>
+
+  <table class="theme-table">
+    <thead>
+      <tr>
+        <th (click)="sort('id')">ID</th>
+        <th (click)="sort('name')">Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let c of bloc.classes | filterPipe: filter | sortPipe: sortField: sortDir"
+        [routerLink]="goTo(c.id)">
+        <td>
+          {{ c.id }}
+        </td>
+        <td>
+          {{ c.name }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+

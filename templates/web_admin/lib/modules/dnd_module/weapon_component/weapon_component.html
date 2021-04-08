@@ -1,0 +1,170 @@
+<form *ngIf="bloc.weapon != null && form != null" [ngFormModel]="form">
+  <div class="mdc-card theme-card theme-card__padded">
+    <!--
+      TOP
+    -->
+    <div class="theme-card__top">
+      <!-- Left -->
+      <div class="theme-card__top-actions__left">
+        <material-button icon materialTooltip="Help">
+          <material-icon icon="info"></material-icon>
+        </material-button>
+      </div>
+      <!-- Right -->
+      <div class="theme-card__top-actions__right">
+        <div>
+          <material-button raised class="red"
+            *ngIf="bloc.weapon.id != null"
+            (trigger)="delete()">Delete</material-button>
+          <material-button raised class="blue"
+            [disabled]="form.invalid"
+            (trigger)="save()">Save</material-button>
+        </div>
+      </div>
+    </div>
+
+    <!--
+      CONTENT
+    -->
+    <div class="theme-card__content">
+      <!-- Name -->
+      <div class="form-item">
+        <material-input floatingLabel
+          type="text"
+          label="Name"
+          leadingGlyph="label"
+          formControlName="name"
+          ngControl="name"></material-input>
+      </div>
+
+      <!-- Description -->
+      <div class="form-item">
+        <material-input floatingLabel multiline
+          rows="2"
+          label="Description"
+          leadingGlyph="label"
+          formControlName="desc"
+          ngControl="desc"></material-input>
+      </div>
+
+      <!-- Type -->
+      <h3>Type</h3>
+      <div class="form-item">
+        <material-dropdown-select
+          popupMaxWidth="100%"
+          [buttonText]="bloc.typeValues[bloc.weapon.type] ?? 'Select Type'">
+          <material-select-dropdown-item
+            *ngFor="let k of bloc.typeValues.keys"
+            (trigger)="bloc.weapon.type = k">
+            {{bloc.typeValues[k]}}
+          </material-select-dropdown-item>
+        </material-dropdown-select>
+      </div>
+
+      <!-- Minimum Damage -->
+      <h3>Min Damage</h3>
+      <div class="form-item">
+        <material-input floatingLabel
+          type="number"
+          label="Min Damage"
+          formControlName="minDmg"
+          ngControl="minDmg"></material-input>
+      </div>
+
+      <!-- Maximum Damage -->
+      <h3>Max Damage</h3>
+      <div class="form-item">
+        <material-input floatingLabel
+          type="number"
+          label="Max Damage"
+          formControlName="maxDmg"
+          ngControl="maxDmg"></material-input>
+      </div>
+
+      <!-- Type -->
+      <h3>Damage Type</h3>
+      <div class="form-item">
+        <material-dropdown-select
+          popupMaxWidth="100%"
+          [buttonText]="bloc.damageValues[bloc.weapon.dmgType] ?? 'Select Damage Type'">
+          <material-select-dropdown-item
+            *ngFor="let k of bloc.damageValues.keys"
+            (trigger)="bloc.weapon.dmgType = k">
+            {{bloc.damageValues[k]}}
+          </material-select-dropdown-item>
+        </material-dropdown-select>
+      </div>
+
+      <!-- Mod Type -->
+      <h3>Modifier</h3>
+      <div class="form-item">
+        <material-dropdown-select
+          popupMaxWidth="100%"
+          [buttonText]="bloc.modValues[bloc.weapon.modType] ?? 'Select Mod'">
+          <material-select-dropdown-item
+            *ngFor="let k of bloc.modValues.keys"
+            (trigger)="bloc.weapon.modType = k">
+            {{bloc.modValues[k]}}
+          </material-select-dropdown-item>
+        </material-dropdown-select>
+      </div>
+
+      <!-- Min Range -->
+      <h3>Min Range</h3>
+      <div class="form-item">
+        <material-input floatingLabel
+          type="number"
+          label="Min Range"
+          formControlName="minRange"
+          ngControl="minRange"></material-input>
+      </div>
+
+      <!-- Max Range -->
+      <h3>Max Range</h3>
+      <div class="form-item">
+        <material-input floatingLabel
+          type="number"
+          label="Max Range"
+          formControlName="maxRange"
+          ngControl="maxRange"></material-input>
+      </div>
+
+      <!-- Price -->
+      <h3>Price</h3>
+      <div class="form-item">
+        <material-input floatingLabel
+          type="number"
+          label="Gold Pieces"
+          leadingGlyph="attach_money"
+          formControlName="price"
+          ngControl="price"></material-input>
+      </div>
+
+      <!-- Weight -->
+      <h3>Weight</h3>
+      <div class="form-item">
+        <material-input floatingLabel
+          type="number"
+          label="Weight"
+          leadingGlyph="priority_high"
+          formControlName="weight"
+          ngControl="weight"></material-input>
+      </div>
+
+      <!-- Proficiencies -->
+      <h3>Proficiency Required</h3>
+      <div class="form-item">
+        <material-dropdown-select
+          popupMaxWidth="100%"
+          [buttonText]="bloc.currentProficiency?.name ?? 'Select Proficiency'">
+          <material-select-dropdown-item
+            *ngFor="let p of bloc.proficiencies"
+            (trigger)="bloc.weapon.profId = p.id">
+            {{p.name}}
+          </material-select-dropdown-item>
+        </material-dropdown-select>
+      </div>
+
+    </div>
+  </div>
+</form>

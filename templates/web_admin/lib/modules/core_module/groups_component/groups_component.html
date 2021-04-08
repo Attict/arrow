@@ -1,0 +1,20 @@
+<div class="mdc-card theme-card theme-card__padded">
+  <table-component
+    [allowAdd]="true"
+    [allowDelete]="true"
+    [headers]="headers"
+    [data]="bloc.groups"
+    [trigger]="goTo">
+    <template let-d>
+      <td class="table__id">
+        {{ d.id }}
+      </td>
+      <td class="table__name">
+        {{ d.label }}
+      </td>
+      <td class="table__name">
+        {{ d.authority }}
+      </td>
+    </template>
+  </table-component>
+</div>

@@ -1,0 +1,53 @@
+<div class="top">
+  <!-- Filter -->
+  <div class="top__left">
+    <material-input
+      [(ngModel)]="filter"
+      leadingGlyph="filter_list"
+      label="Filter"
+      type="text"></material-input>
+  </div>
+  <!-- Actions -->
+  <div class="top__right" *ngIf="actions != null">
+    <material-fab raised mini
+      *ngFor="let action of actions"
+      [materialTooltip]="action.tooltip"
+      [class]="action.classes"
+      (click)="action.trigger()">
+      <material-icon [icon]="action.icon"></material-icon>
+    </material-fab>
+  </div>
+</div>
+<table>
+  <thead *ngIf="headers != null">
+    <tr>
+      <th *ngIf="selectable" class="table__select-column">
+        <!-- Select All -->
+        <material-checkbox (change)="select($event)">
+        </material-checkbox>
+      </th>
+      <th *ngFor="let k of headers.keys" (click)="sort(k)">
+        {{headers[k]}}
+        <span class="table-header__arrow">
+          <material-icon *ngIf="sortDir != 0 && sortField == k"
+            size="small"
+            baseline="true"
+            [icon]="sortDir == -1 ? 'arrow_upward' : 'arrow_downward'">
+          </material-icon>
+        </span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let d of data | filterPipe: filter | sortPipe: sortField: sortDir; let i = index"
+      (click)="trigger != null ? trigger(d) : null">
+      <td *ngIf="selectable" class="table__select-column"
+        (click)="$event.preventDefault();$event.stopPropagation()">
+        <material-checkbox [(ngModel)]="selected[i]"></material-checkbox>
+      </td>
+      <template
+        [ngTemplateOutlet]="body"
+        [ngTemplateOutletContext]="context(d)"></template>
+    </tr>
+  </tbody>
+</table>

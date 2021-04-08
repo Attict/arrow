@@ -1,0 +1,11 @@
+name: Arrow
+port: 8500
+
+targets:
+  - web_admin
+  - web_client
+
+modules:
+  - core_module
+  - dnd_module
+

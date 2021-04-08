@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+  server:
+    build:
+      context: ./
+    hostname: server
+    ports:
+      - "8500:8500"
+    restart: always
+    volumes:
+      - type: volume
+        source: media
+        target: /go/media
+        volume:
+          nocopy: true
+  database:
+    hostname: database
+    image: postgres:latest
+    ports:
+      - 5432
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=
+      - POSTGRES_DB=api
+    volumes:
+      - type: volume
+        source: database
+        target: /var/lib/postgresql/data
+        volume:
+          nocopy: true
+
+volumes:
+  database:
+  media:

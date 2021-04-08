@@ -1,0 +1,100 @@
+<div class="homepage-banner">
+  <span>Example Frontend</span>
+</div>
+
+<div class="homepage-section">
+  <div class="homepage-container">
+    <span>Welcome to Example Frontend</span>
+    <p>This is a sample of a frontend, and general-facing website.  This is
+       where standard, or non-users would go to see general information.
+       The admin section is where administration stuff will exist.  This is
+       the initial, and brief about information, or whatever you want
+       users to first see when they come to this page.  Maybe some information
+       that makes this fill more area and make it longer.</p>
+  </div>
+</div>
+
+<div class="homepage-section homepage-section__color">
+  <div class="homepage-container">
+    <section class="homepage-quote">
+      <h3>This is a quote section, possibly a value, or general missions
+          statement about how example frontend can change the world.</h3>
+      <span>- Administrator Super User</span>
+    </section>
+  </div>
+</div>
+
+<!--
+<div class="homepage-section">
+  <div class="homepage-container">
+    <ul class="homepage-list__column">
+      <li>
+        <span>First Title</span>
+        <p>Some more content from the first column.  This column could
+           be a new feature or an important article.  Also this could be
+           a value or mission statement part 1 of 2.</p>
+      </li>
+      <li>
+        <span>Second Title</span>
+        <p>Some more content from the first column.  This column could
+           be a new feature or an important article.  Also this could be
+           a value or mission statement part 1 of 2.</p>
+      </li>
+    </ul>
+  </div>
+</div>
+-->
+
+<div class="homepage-section homepage-section__image homepage-image__first">
+  <div class="homepage-container">
+    <ul class="homepage__transparent-cards">
+      <li>
+        <span><i class="material-icons">chat</i></span>
+        <p>We value your input, and welcome suggestions to help our
+           product grow and becoming infinite like the 6 stones.</p>
+        <a>Learn More</a>
+      </li>
+
+      <li>
+        <span><i class="material-icons">opacity</i></span>
+        <p>We strive to be as transparent as this droplet, where at least
+           50% of our frontend is transparent.</p>
+        <a>Learn More</a>
+      </li>
+
+      <li>
+        <span><i class="material-icons">dns</i></span>
+        <p>Manage your frontend site through the admin portal.  There
+           you can add new articles, and manage users, and settings.</p>
+        <a>Learn More</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="homepage-section homepage-section__center">
+  <div class="homepage-container">
+    <div class="homepage-blog__title">
+      <h4>Latest Blogs</h4>
+      <a [routerLink]="RoutePaths.homepage.toUrl()">
+        View All <i class="material-icons">more</i>
+      </a>
+    </div>
+    <!--<ul class="homepage-blog__list">
+      <li class="homepage-blog__list-item" *ngFor="let blog of blogs">
+        <div class="homepage-blog__list-item__image">
+          <img (load)="coverImageLoad($event)"
+            *ngIf="blog.coverImage != null"
+            class="theme__opacity-zero"
+            src="{{getBlogImage(blog)}}">
+        </div>
+        <section>
+          <h3>{{blog.title}}</h3>
+          <span>By <a>{{blog.author.username}}</a> on May 27, 2019</span>
+          <p>{{blog.brief}}</p>
+          <a (click)="goToBlog(blog.id)">...Read More</a>
+        </section>
+      </li>
+    </ul>-->
+  </div>
+</div>

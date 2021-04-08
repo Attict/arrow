@@ -1,0 +1,60 @@
+#!/bin/sh
+
+BASEDIR=$(dirname "$0")
+INTERNAL=$BASEDIR/../internal
+
+
+# Requires current dir is an arrow project, with an `arrow.yaml` file.
+requires_project() {
+  if [ ! -f ./arrow.yml ]; then
+    echo "Uh-oh, no [arrow.yml] was found.  Please make sure you are in an arrow project."
+    exit 1
+  fi
+}
+
+case $1 in
+  add)
+    requires_project
+    if [ "$#" -gt 1 ]; then
+      shift
+    fi
+    sh $INTERNAL/_add.sh $@
+    ;;
+  build)
+    requires_project
+    sh $INTERNAL/_build.sh
+    ;;
+  clean)
+    requires_project
+    if [ "$#" -gt 1 ]; then
+      shift
+    fi
+    sh $INTERNAL/_clean.sh $@
+    ;;
+  create)
+    if [ "$#" -gt 1 ]; then
+      shift
+    fi
+    sh $INTERNAL/_create.sh $@
+    ;;
+  get)
+    requires_project
+    if [ "$#" -gt 1 ]; then
+      shift
+    fi
+    sh $INTERNAL/_get.sh $@
+    ;;
+  run)
+    requires_project
+    if [ "$#" -gt 1 ]; then
+      shift
+    fi
+    sh $INTERNAL/_run.sh $@
+    ;;
+  *)
+    if [ "$#" -gt 1 ]; then
+      shift
+    fi
+    sh $INTERNAL/_help.sh $@
+    ;;
+esac

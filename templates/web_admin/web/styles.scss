@@ -1,0 +1,206 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+@import url(https://fonts.googleapis.com/css?family=Material+Icons);
+
+@import 'package:web_admin/theme';
+
+html, body { height: 100%; }
+body {
+  //background: $blue-700;
+  background: #efefef;
+  margin: 0;
+  padding: 0;
+  min-width: 400px;
+}
+
+* {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+
+.pre-loading {
+  background: $blue-700;
+  height: 100%;
+  width: 100%;
+}
+
+///
+/// For transitioning
+///
+.theme__opacity-zero {
+  opacity: 0;
+}
+
+///
+/// Logo
+///
+.logo {
+  background: url('/assets/images/logo.png') no-repeat;
+}
+
+///
+/// Material Header
+///
+.material-header {
+  background-color: $blue-700 !important;
+}
+
+/// ----------------------------------------------------------------------------
+/// Theme Dark
+///
+.theme__dark {
+  background: $dark-bg-300;
+  color: $mat-white;
+
+  .logo {
+    background: url('/assets/images/logo_white.png') no-repeat;
+  }
+
+  .mdc-card {
+    background: $dark-bg-700 !important;
+    color: #ffffff !important;
+  }
+
+  material-drawer,
+  material-list {
+    background: $dark-bg-700 !important;
+
+    div {
+      box-shadow: inset 0 8px 0 0  $dark-bg-700 !important;
+      border-color: $dark-bg-500 !important;
+      color: rgba(255, 255, 255, 0.87) !important;
+    }
+
+    material-list-item {
+      color: rgba(255, 255, 255, 0.87) !important;
+
+      &:hover,
+      &:focus,
+      &.active {
+        background: $dark-bg-500 !important;
+      }
+    }
+    material-icon {
+      color: $mat-white !important;
+    }
+  }
+  .material-header {
+    background-color: $blue-500 !important;
+  }
+
+  material-menu {
+    .menu-item-label {
+      color: rgba(255, 255, 255, 0.87) !important;
+    }
+  }
+}
+
+/// ----------------------------------------------------------------------------
+/// Material Card
+///
+
+///
+/// Theme card
+///
+.theme-card {
+  &.theme-card__padded {
+    padding: 35px 50px 50px;
+  }
+  .theme-card__top {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+
+    material-input {
+      flex: 1 1 50%;
+    }
+
+    .theme-card__top-actions__right {
+      padding: 0 0 0 25px;
+    }
+  }
+
+  .theme-card__content {
+    padding: 25px 0 0;
+  }
+
+  ///
+  /// Single View Edit
+  ///
+
+  material-input,
+  material-dropdown-select {
+    width: 100%;
+  }
+
+  material-dropdown-select {
+    padding: 0 0 15px;
+  }
+
+  .form-item {
+    box-sizing: border-box;
+    padding: 10px 0;
+    min-width: 300px;
+
+    .form-item__id {
+      color: #8f8f8f;
+      font-size: 1em;
+      font-weight: 900;
+      display: block;
+      padding: 25px 0;
+    }
+  }
+
+  .flex-50 {
+    box-sizing: border-box;
+    flex: 1 1 50%;
+    padding: 0 25px;
+    min-width: 400px;
+  }
+}
+
+///
+/// Theme table
+///
+.theme-table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  width: 100%;
+
+  tr {
+    cursor: pointer;
+  }
+
+  tr th {
+    @include mat-font-caption;
+    color: inherit !important;
+    padding: 15px 0;
+    text-align: left;
+    text-transform: lowercase;
+  }
+
+  tr th,
+  tr td {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  }
+
+  tr td {
+    @include mat-font-body;
+    color: inherit !important;
+    padding: 15px 0;
+  }
+}
+
+
+///
+/// Logo
+///
+.logo {
+  background: url('/assets/images/logo_black.png') no-repeat;
+}
+
+.add__rotate-close {
+  material-icon {
+    transition: transform 0.25s ease;
+    transform: rotate(45deg) !important;
+  }
+}

@@ -1,0 +1,551 @@
+<div *ngIf="bloc.character != null">
+  <div class="top">
+    <!--
+      TOP
+
+      Primarily buttons
+    -->
+    <!-- Upload -->
+    <material-button icon
+      materialTooltip="Upload Character File"
+      (click)="view()">
+      <material-icon icon="pageview"></material-icon>
+    </material-button>
+    <material-button icon
+      materialTooltip="Upload Character File"
+      (click)="upload()">
+      <material-icon icon="cloud_upload"></material-icon>
+    </material-button>
+    <!-- Download -->
+    <material-button icon
+      materialTooltip="Download Character File"
+      (click)="download()">
+      <material-icon icon="cloud_download"></material-icon>
+    </material-button>
+    <!-- Print -->
+    <material-button icon
+      materialTooltip="Print Sheet"
+      (click)="generate()">
+      <material-icon icon="print"></material-icon>
+    </material-button>
+    <!-- Save -->
+    <material-button icon
+      materialTooltip="Save Character"
+      (click)="save()">
+      <material-icon icon="save"></material-icon>
+    </material-button>
+
+  </div>
+
+  <material-expansionpanel-set focusList>
+    <!--
+      BASIC INFORMATION
+    -->
+    <material-expansionpanel wide [showSaveCancel]="false"
+      name="Basic Information" class="basic">
+      <div>
+        <!-- Name -->
+        <material-input floatingLabel
+          label="Character Name"
+          [(ngModel)]="bloc.character.name"></material-input>
+        <!-- Player -->
+        <material-input floatingLabel
+          label="Player Name"
+          [(ngModel)]="bloc.character.player"></material-input>
+      </div>
+      <div>
+        <!-- Alignment -->
+        <material-dropdown-select
+          popupMaxWidth="100%"
+          [ngModel]="bloc.character.alignment"
+          [buttonText]="bloc.character.alignment ?? 'Choose Alignment'">
+          <material-select-dropdown-item
+            *ngFor="let alignment of bloc.alignments"
+            (trigger)="bloc.character.alignment = alignment">
+            {{alignment}}
+          </material-select-dropdown-item>
+        </material-dropdown-select>
+        <!-- Level -->
+        <material-dropdown-select
+          popupMaxWidth="100%"
+          [ngModel]="bloc.character.level"
+          [buttonText]="bloc.character.level?.toString() ?? 'Select Level'">
+          <material-select-dropdown-item
+            *ngFor="let i of levels"
+            (trigger)="bloc.character.level = i">
+            {{i}}
+          </material-select-dropdown-item>
+        </material-dropdown-select>
+      </div>
+      <div>
+        <!-- Height -->
+        <material-input floatingLabel
+          label="Height"
+          [(ngModel)]="bloc.character.height"></material-input>
+        <!-- Weight -->
+        <material-input floatingLabel
+          label="Weight"
+          [(ngModel)]="bloc.character.weight"></material-input>
+      </div>
+      <div>
+        <!-- Eyes -->
+        <material-input floatingLabel
+          label="Eyes"
+          [(ngModel)]="bloc.character.eyes"></material-input>
+        <!-- Hair -->
+        <material-input floatingLabel
+          label="Hair"
+          [(ngModel)]="bloc.character.hair"></material-input>
+      </div>
+      <div>
+        <!-- Age -->
+        <material-input floatingLabel type="number"
+          label="Age"
+          [(ngModel)]="bloc.character.age"></material-input>
+        <!-- Skin -->
+        <material-input floatingLabel
+          label="Skin"
+          [(ngModel)]="bloc.character.skin"></material-input>
+      </div>
+      <div>
+        <!-- Portrait -->
+        <material-input floatingLabel
+          label="Portrait URL"
+          [(ngModel)]="bloc.character.portrait"></material-input>
+        <material-checkbox label="Public"
+          [(ngModel)]="bloc.character.public"></material-checkbox>
+      </div>
+    </material-expansionpanel>
+
+    <!--
+      RACE
+    -->
+    <material-expansionpanel wide [showSaveCancel]="false"
+      name="Race" class="race">
+      <div>
+        <material-dropdown-select
+          popupMaxWidth="100%"
+          [buttonText]="bloc.currentRace?.name ?? 'Select Race'">
+          <material-select-dropdown-item
+            *ngFor="let race of bloc.races"
+            (trigger)="bloc.currentRace = race">
+            {{race.name}}
+          </material-select-dropdown-item>
+        </material-dropdown-select>
+      </div>
+      <div *ngIf="bloc.currentRace != null"
+        class="race-details">
+        <!-- Description -->
+        <div class="race-description">
+          <h3>Description</h3>
+          <span>{{bloc.currentRace.desc}}</span>
+        </div>
+        <!-- Given Race Proficiencies -->
+        <div class="race-features">
+          <h3>Proficiencies</h3>
+          <ul>
+            <li *ngFor="let p of raceProfs">
+              {{p.name}}
+            </li>
+          </ul>
+        </div>
+        <!-- Given Race Features -->
+        <div class="race-features">
+          <h3>Features</h3>
+          <ul>
+            <li *ngFor="let f of bloc.currentRace.feats">
+              {{f.name}}
+            </li>
+          </ul>
+        </div>
+        <!-- Speed -->
+        <div class="race-speed">
+          <h3>Speed</h3>
+          <span>{{bloc.currentRace.speed}} ft.</span>
+        </div>
+        <!-- Attributes -->
+        <div *ngIf="bloc.currentRace.hasAttr()"
+          class="race-attributes">
+          <h3>Bonus Attributes</h3>
+          <span>Strength: {{bloc.currentRace.strength}}</span>
+          <span>Dexterity: {{bloc.currentRace.dexterity}}</span>
+          <span>Constitution: {{bloc.currentRace.constitution}}</span>
+          <span>Wisdom: {{bloc.currentRace.wisdom}}</span>
+          <span>Intelligence: {{bloc.currentRace.intelligence}}</span>
+          <span>Charisma: {{bloc.currentRace.charisma}}</span>
+        </div>
+        <!-- Bonus Attributes (Selectable) -->
+        <div *ngIf="bloc.currentRace.attrPoints > 0">
+          <h3>Bonus Attributes (Choose)</h3>
+          <material-dropdown-select
+            *ngFor="let s of bloc.currentRaceAttrs; let i = index"
+            popupMaxWidth="100%"
+            [buttonText]="attrValues[s?.subtype] ?? 'Select Bonus'">
+            <material-select-dropdown-item
+              *ngFor="let k of attrValues.keys"
+              (trigger)="bloc.currentRaceAttrs[i] = createModifier(1, k, 1)">
+              {{attrValues[k]}}
+            </material-select-dropdown-item>
+          </material-dropdown-select>
+        </div>
+        <!-- Bonus Feats -->
+        <div *ngIf="bloc.currentRace.featPoints > 0">
+          <h3>Bonus Feats (Choose)</h3>
+          <material-dropdown-select
+            *ngFor="let s of bloc.currentRaceFeats; let i = index"
+            popupMaxWidth="100%"
+            [buttonText]="s?.name ?? 'Select Feat'">
+            <material-select-dropdown-item
+              *ngFor="let f of bloc.feats"
+              (trigger)="bloc.currentRaceFeats[i] = f">
+              {{f.name}}
+            </material-select-dropdown-item>
+          </material-dropdown-select>
+        </div>
+      </div>
+    </material-expansionpanel>
+
+    <!--
+      CLASS
+    -->
+    <material-expansionpanel wide [showSaveCancel]="false"
+      name="Class" class="class">
+      <div>
+        <material-dropdown-select
+          popupMaxWidth="100%"
+          [buttonText]="bloc.currentClass?.name ?? 'Select Class'">
+          <material-select-dropdown-item
+            *ngFor="let c of bloc.classes"
+            (trigger)="bloc.currentClass = c">
+            {{c.name}}
+          </material-select-dropdown-item>
+        </material-dropdown-select>
+      </div>
+      <div *ngIf="bloc.currentClass != null"
+        class="class-details">
+        <div class="class-description">
+          <h3>Description</h3>
+          <span>{{bloc.currentClass.desc}}</span>
+        </div>
+        <div>
+          <h3>Class Skills</h3>
+          <span *ngFor="let s of bloc.currentSkills; let i = index">
+            <material-dropdown-select
+              popupMaxWidth="100%"
+              [buttonText]="bloc.currentSkills[i]?.name ?? 'Select'">
+              <material-select-dropdown-item
+                *ngFor="let skill of bloc.classSkills"
+                (trigger)="bloc.currentSkills[i] = skill">
+                {{skill.name}}
+              </material-select-dropdown-item>
+            </material-dropdown-select>
+          </span>
+        </div>
+        <div>
+          <h3>Saving Throws</h3>
+          <span *ngIf="bloc.currentClass.saveStr">
+            STR
+          </span>
+          <span *ngIf="bloc.currentClass.saveDex">
+            DEX
+          </span>
+          <span *ngIf="bloc.currentClass.saveCon">
+            CON
+          </span>
+          <span *ngIf="bloc.currentClass.saveInt">
+            INT
+          </span>
+          <span *ngIf="bloc.currentClass.saveWis">
+            WIS
+          </span>
+          <span *ngIf="bloc.currentClass.saveCha">
+            CHA
+          </span>
+        </div>
+      </div>
+    </material-expansionpanel>
+
+    <!--
+      ARCHETYPE
+    -->
+    <material-expansionpanel *ngIf="bloc.character.level != null && bloc.character.level > 2"
+      wide [showSaveCancel]="false"
+      name="Archetype" class="archetype">
+      <div>
+        <material-dropdown-select
+          popupMaxWidth="100%"
+          [buttonText]="bloc.currentArchetype?.name ?? 'Select Archetype'">
+          <material-select-dropdown-item
+            *ngFor="let a of bloc.classArchetypes"
+            (trigger)="bloc.currentArchetype = a">
+            {{a.name}}
+          </material-select-dropdown-item>
+        </material-dropdown-select>
+      </div>
+      <div *ngIf="bloc.currentArchetype != null"
+        class="archetype-details">
+        <!-- Description -->
+        <div class="race-description">
+          <h3>Description</h3>
+          <span>{{bloc.currentArchetype.desc}}</span>
+        </div>
+        <!-- Given Race Features -->
+        <div class="race-features">
+          <h3>Features</h3>
+          <span>Todo:</span>
+        </div>
+        <!-- Speed -->
+        <div class="race-speed">
+          <h3>Speed</h3>
+          <span>{{bloc.currentRace.speed}} ft.</span>
+        </div>
+        <!-- Attributes -->
+        <div *ngIf="bloc.currentRace.hasAttr()"
+          class="race-attributes">
+          <h3>Bonus Attributes</h3>
+          <span>Strength: {{bloc.currentRace.strength}}</span>
+          <span>Dexterity: {{bloc.currentRace.dexterity}}</span>
+          <span>Constitution: {{bloc.currentRace.constitution}}</span>
+          <span>Wisdom: {{bloc.currentRace.wisdom}}</span>
+          <span>Intelligence: {{bloc.currentRace.intelligence}}</span>
+          <span>Charisma: {{bloc.currentRace.charisma}}</span>
+        </div>
+        <!-- Bonus Attributes (Selectable) -->
+        <div *ngIf="bloc.currentRace.attrPoints > 0">
+          <h3>Bonus Attributes (Choose)</h3>
+          <material-dropdown-select
+            *ngFor="let bonus of bonuses"
+            popupMaxWidth="100%"
+            [buttonText]="bonusTypes[bonus.type] ?? 'Select Bonus'">
+            <material-select-dropdown-item
+              *ngFor="let k of bonusAttrsOnly.keys"
+              (trigger)="bonus.type = k">
+              {{bonusTypes[k]}}
+            </material-select-dropdown-item>
+          </material-dropdown-select>
+
+        </div>
+        <!-- Bonus Feats -->
+        <div *ngIf="bloc.currentRace.featPoints > 0">
+          <h3>Bonus Feats (Choose)</h3>
+          <span>Feat Points: {{bloc.currentRace.featPoints}}</span>
+        </div>
+      </div>
+    </material-expansionpanel>
+
+    <!--
+      BACKGROUND
+    -->
+    <material-expansionpanel wide [showSaveCancel]="false"
+      name="Background" class="background">
+      <div>
+        <material-dropdown-select
+          popupMaxWidth="100%"
+          [buttonText]="bloc.currentBackground?.name ?? 'Select Background'">
+          <material-select-dropdown-item
+            *ngFor="let b of bloc.backgrounds"
+            (trigger)="bloc.currentBackground = b">
+            {{b.name}}
+          </material-select-dropdown-item>
+        </material-dropdown-select>
+      </div>
+      <div *ngIf="bloc.currentBackground != null"
+        class="background-details">
+        <div class="background-description">
+          <h3>Description</h3>
+          <span>{{bloc.currentBackground.desc}}</span>
+        </div>
+        <div class="background-skills">
+          <h3>Bonus Skills</h3>
+          <span *ngFor="let s of bloc.backgroundSkills">
+            {{s.name}}
+          </span>
+        </div>
+      </div>
+    </material-expansionpanel>
+
+
+    <!--
+      ATTRIBUTES
+    -->
+    <material-expansionpanel wide [showSaveCancel]="false"
+      name="Attributes" class="attributes">
+      <!-- Choose -->
+      <div>
+        <material-input floatingLabel type="number"
+          label="Strength"
+          [(ngModel)]="bloc.character.strength"></material-input>
+        <material-input floatingLabel type="number"
+          label="Dexterity"
+          [(ngModel)]="bloc.character.dexterity"></material-input>
+        <material-input floatingLabel type="number"
+          label="Constitution"
+          [(ngModel)]="bloc.character.constitution"></material-input>
+        <material-input floatingLabel type="number"
+          label="Intelligence"
+          [(ngModel)]="bloc.character.intelligence"></material-input>
+        <material-input floatingLabel type="number"
+          label="Wisdom"
+          [(ngModel)]="bloc.character.wisdom"></material-input>
+        <material-input floatingLabel type="number"
+          label="Charisma"
+          [(ngModel)]="bloc.character.charisma"></material-input>
+      </div>
+    </material-expansionpanel>
+
+    <!--
+      PERSONALITY
+    -->
+    <material-expansionpanel wide [showSaveCancel]="false"
+      name="Personality" class="personality">
+      <div>
+        <!-- Personality Traits -->
+        <material-input floatingLabel multiline
+          rows="2"
+          label="Personality Traits"
+          [(ngModel)]="bloc.character.personalityTraits"></material-input>
+        <!-- Personality Ideals -->
+        <material-input floatingLabel multiline
+          rows="2"
+          label="Ideals"
+          [(ngModel)]="bloc.character.ideals"></material-input>
+        <!-- Personality Bonds -->
+        <material-input floatingLabel multiline
+          rows="2"
+          label="Bonds"
+          [(ngModel)]="bloc.character.bonds"></material-input>
+        <!-- Personality Ideals -->
+        <material-input floatingLabel multiline
+          rows="2"
+          label="Flaws"
+          [(ngModel)]="bloc.character.flaws"></material-input>
+      </div>
+    </material-expansionpanel>
+
+    <!--
+      Story
+    -->
+    <material-expansionpanel wide [showSaveCancel]="false"
+      name="Story" class="story">
+      <div>
+        <!-- Appearance -->
+        <material-input floatingLabel multiline
+          rows="2"
+          label="Appearance"
+          [(ngModel)]="bloc.character.appearance"></material-input>
+        <!-- Backstory -->
+        <material-input floatingLabel multiline
+          rows="2"
+          label="Backstory"
+          [(ngModel)]="bloc.character.backstory"></material-input>
+        <!-- Organizations -->
+        <material-input floatingLabel multiline
+          rows="2"
+          label="Organizations"
+          [(ngModel)]="bloc.character.organizations"></material-input>
+        <!-- Allies -->
+        <material-input floatingLabel multiline
+          rows="2"
+          label="Allies"
+          [(ngModel)]="bloc.character.allies"></material-input>
+        <!-- Enemies -->
+        <material-input floatingLabel multiline
+          rows="2"
+          label="Enemies"
+          [(ngModel)]="bloc.character.enemies"></material-input>
+      </div>
+    </material-expansionpanel>
+
+    <!--
+      Campaigns
+    -->
+    <material-expansionpanel wide [showSaveCancel]="false"
+      name="Campaign" class="campaign">
+      <div>
+        <material-dropdown-select
+          popupMaxWidth="100%"
+          [buttonText]="bloc.currentCampaign()?.name ?? 'Select Campaign'">
+          <material-select-dropdown-item
+            *ngFor="let c of bloc.campaigns"
+            (trigger)="bloc.character.campaignId = c.id">
+            {{c.name}}
+          </material-select-dropdown-item>
+        </material-dropdown-select>
+      </div>
+    </material-expansionpanel>
+
+    <!--
+      Items
+    -->
+    <material-expansionpanel wide [showSaveCancel]="false"
+      name="Items" class="items">
+      <div>
+        <material-dropdown-select
+          popupMaxWidth="100%"
+          [buttonText]="itemTypeValues[itemType]">
+          <material-select-dropdown-item
+            *ngFor="let k of itemTypeValues.keys"
+            (trigger)="itemType = k">
+            {{itemTypeValues[k]}}
+          </material-select-dropdown-item>
+        </material-dropdown-select>
+      </div>
+      <div>
+        <material-button
+          (trigger)="addItem()">Add Item</material-button>
+      </div>
+      <div>
+        <material-select [selection]="itemSelection" focusList width="2">
+          <material-select-item focusItem
+            *ngFor="let i of items" [value]="i">
+            {{i.name}}
+          </material-select-item>
+        </material-select>
+      </div>
+    </material-expansionpanel>
+
+    <!--
+      Equip
+    -->
+    <material-expansionpanel wide [showSaveCancel]="false"
+      name="Equipment" class="equip">
+      <div class="equip-weapons">
+        <h3>Weapons</h3>
+        <div>
+          <material-dropdown-select
+            popupMaxWidth="100%"
+            [buttonText]="currentEquipWeapon?.item?.name ?? 'My Weapons'">
+            <material-select-dropdown-item
+              *ngFor="let w of equipmentWeapons"
+              (trigger)="currentEquipWeapon = w">
+              {{w.item.name}}
+            </material-select-dropdown-item>
+          </material-dropdown-select>
+          <material-button
+            (trigger)="equipWeapon()">Equip Weapon</material-button>
+        </div>
+        <div class="equip-weapons__equipped" *ngFor="let w of equippedWeapons">
+          <material-button icon
+            materialTooltip="Upload Character File"
+            (click)="bloc.character.equipmentWeapons.remove(w.id)">
+            <material-icon icon="remove" class="red"></material-icon>
+          </material-button>
+          {{w.item.name}}
+        </div>
+      </div>
+      <div>
+        <h3>Armor</h3>
+        <material-dropdown-select
+          popupMaxWidth="100%"
+          [buttonText]="equippedArmorName() ?? 'Equip Armor'">
+          <material-select-dropdown-item
+            *ngFor="let a of equipmentArmor"
+            (trigger)="bloc.character.equipmentArmor = a.id">
+            {{a.item.name}}
+          </material-select-dropdown-item>
+        </material-dropdown-select>
+      </div>
+    </material-expansionpanel>
+
+  </material-expansionpanel-set>
+</div>

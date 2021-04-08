@@ -1,0 +1,146 @@
+<!--
+  APPLICATION
+
+  The application's layout.
+-->
+<div class="application">
+  <!--
+    PAGE LAYOUT
+
+    The page's layout.
+  -->
+  <div *ngIf="app.user != null">
+    <!-- Drawer -->
+    <material-drawer persistent #drawer="drawer">
+      <material-list *deferredContent>
+        <!-- Logo -->
+        <div group class="mat-drawer-spacer logo"></div>
+
+        <!-- Modules -->
+        <div group>
+          <div label>Modules</div>
+          <material-list-item
+            routerLinkActive="active"
+            [routerLink]="RoutePaths.dnd.toUrl()">
+            <material-icon icon="whatshot"></material-icon>Dnd Module
+          </material-list-item>
+          <material-list-item
+            routerLinkActive="active"
+            [routerLink]="RoutePaths.tabletopMap.toUrl()">
+            <material-icon icon="explore"></material-icon>Tabletop Map
+          </material-list-item>
+        </div>
+
+        <!-- SYSTEM -->
+        <div group *ngIf="app.user.groupId == 1">
+          <div label>System</div>
+          <material-list-item
+            routerLinkActive="active"
+            [routerLink]="RoutePaths.coreUsers.toUrl()">
+            <material-icon icon="person"></material-icon>Users
+          </material-list-item>
+          <material-list-item
+            routerLinkActive="active"
+            [routerLink]="RoutePaths.coreGroups.toUrl()">
+            <material-icon icon="people"></material-icon>Groups
+          </material-list-item>
+          <material-list-item
+            routerLinkActive="active"
+            [routerLink]="RoutePaths.coreModules.toUrl()">
+            <material-icon icon="extension"></material-icon>Modules
+          </material-list-item>
+        </div>
+      </material-list>
+    </material-drawer>
+
+      <!-- Content -->
+    <div class="material-content">
+
+      <!-- Header -->
+      <header class="material-header shadow">
+        <div class="material-header-row">
+          <material-button icon
+              class="material-drawer-button" (trigger)="drawer.toggle()">
+            <material-icon icon="menu"></material-icon>
+          </material-button>
+          <span class="material-header-title">{{title}}</span>
+          <div class="material-spacer"></div>
+
+          <!-- User Menu -->
+          <div class="app-options">
+            <material-button icon materialTooltip="View Website">
+              <material-icon icon="web"></material-icon>
+            </material-button>
+            <material-menu [menu]="menuItem">
+            </material-menu>
+          </div>
+        </div>
+      </header>
+
+      <!--
+        (Router) Component
+
+        Optionally: [hidden]="app.loading"
+      -->
+      <main>
+        <router-outlet [routes]="Routes.all"></router-outlet>
+      </main>
+    </div>
+  </div> <!-- PAGE LAYOUT -->
+
+  <!--
+    AUTHENTICATION
+
+    The login page.
+  -->
+  <authentication-component *ngIf="app.user == null"></authentication-component>
+
+  <!--
+    DIALOG
+
+    The dialog popup.
+  -->
+  <modal [visible]="app.dialog != null">
+    <material-dialog>
+
+      <h1 header>{{app.dialog?.title}}</h1>
+
+      <p>{{app.dialog?.message}}</p>
+
+      <div footer>
+        <material-button
+          *ngFor="let button of app.dialog?.buttons; let i = index"
+          clear-size
+          [class]="button.classes"
+          [raised]="button.raised"
+          (trigger)="button.callback()">
+          {{button.label}}
+        </material-button>
+      </div>
+
+    </material-dialog>
+  </modal>
+
+  <!--
+    NOTIFICATIONS
+
+    Each notification popup.
+  -->
+  <!--<div class="app-notifications"
+    *ngFor="let notification of app.notifications | async">
+    <section>
+      <span>{{notification.title}}</span>
+      <p>{{notification.message}}</p>
+      <material-button>Dismiss</material-button>
+    </section>
+  </div>-->
+
+  <!--
+    LOADING
+
+    The application loading display.
+  -->
+  <div class="app-loading" *ngIf="loading">
+    <material-progress [indeterminate]="true"></material-progress>
+  </div>
+</div>

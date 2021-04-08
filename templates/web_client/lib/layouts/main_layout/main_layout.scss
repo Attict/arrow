@@ -1,0 +1,372 @@
+@import 'package:web_client/theme';
+// -----------------------------------------------------------------------------
+// APP-HEADER
+//
+
+.app-header {
+  background: #ffffff;
+  position: relative;
+  user-select: none;
+  z-index: 900;
+}
+
+.app-container {
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0 25px;
+  max-width: 1200px;
+}
+
+// Top
+.app-header__top {
+  border-bottom: 1px solid #e4e4e4;
+}
+.app-header.fixed .app-header__top {
+  margin: 0 0 86px;
+}
+.app-header__top .app-container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 25px;
+}
+
+// Top - Social
+.app-header__top-social ul {
+  display: flex;
+}
+.app-header__top-social li {
+  height: 30px;
+  padding: 5px 5px 5px 0;
+  width: 30px;
+}
+.app-header__top-social img {
+  height: 100%;
+  width: 100%;
+}
+
+// Top - Contact
+.app-header__top-contact i {
+  font-size: 0.9em;
+}
+
+//  Nav
+.app-header__nav {
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  width: 100%;
+}
+.app-header.fixed .app-header__nav {
+  position: fixed;
+  top: 0;
+  z-index: 900;
+}
+.app-header__nav .app-container {
+  align-items: center;
+  display: flex;
+  height: 85px;
+  justify-content: space-between;
+}
+
+// Nav - Menu
+.app-header__nav-menu > ul {
+  align-items: center;
+  display: flex;
+}
+.app-header__nav-menu > ul > li {
+  padding: 0 25px 0 0;
+}
+.app-header__nav-menu img {
+  height: 50px;
+}
+
+.app-header__nav-menu ul ul {
+  background: rgba(0, 0, 0, 0.85);
+  padding: 25px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100px;
+}
+
+
+// Nav - Options
+.app-header__nav-options__list {
+  display: flex;
+}
+.app-header__nav-options__list > li {
+  padding: 0 0 0 25px;
+  position: relative;
+}
+
+// -----------------------------------------------------------------------------
+// HEADER - USER
+//
+
+.app-header__user {
+  background: #222732;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  right: -5px;
+  top: 40px;
+  transform: translateY(-25px);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  width: 250px;
+  z-index: 910;
+}
+.app-header__nav-options li.active .app-header__user{
+  opacity: 1.0;
+  pointer-events: all;
+  transform: translateY(0);
+}
+.app-header__user::before {
+  content: 'arrow_drop_up';
+  color: #222732;
+  display: block;
+  font-family: 'Material Icons';
+  font-size: 64px;
+  pointer-events: none;
+  position: absolute;
+  right: -15px;
+  top: -30px;
+}
+.app-header__user li {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  &:last-child {
+    border-bottom: none;
+  }
+}
+.app-header__user a {
+  color: rgba(255, 255, 255, 0.75);
+  display: block;
+  padding: 15px;
+}
+.app-header__user a:hover {
+  color: #ffffff;
+}
+.app-header__user-button {
+  background: $red-500;
+  border: 1px solid $red-300;
+  color: #ffffff !important;
+  cursor: pointer;
+  display: block;
+  font-size: 0.9em;
+  margin: 15px;
+  outline: none;
+  padding: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: background 0.25s ease;
+  width: calc(100% - 30px);
+}
+.app-header__user-button:hover {
+  background: $red-300;
+}
+
+//------------------------------------------------------------------------------
+// APP-FOOTER
+
+.app-footer__message {
+  background: #444954;
+  color: #ffffff;
+  font-size: 1em;
+  letter-spacing: 1px;
+  line-height: 100px;
+  padding: 0 5px;
+  text-align: center;
+}
+.app-footer__message a {
+  border: 1px solid #ffffff;
+  border-radius: 3px;
+  display: inline-block;
+  font-size: 0.75em;
+  line-height: 25px;
+  margin: 0 0 0 10px;
+  padding: 5px 10px;
+  transition: all 0.25s ease;
+}
+.app-footer__message a:hover {
+  background: #ffffff;
+  color: #444954;
+}
+
+.app-footer__sitemap {
+  background: #333843;
+}
+.app-footer__sitemap .app-container {
+  display: flex;
+  justify-content: center;
+  padding: 50px 25px;
+}
+.app-footer__sitemap ul {
+  color: rgba(255, 255, 255, 0.75);
+  flex: 1 1 25%;
+  font-size: 0.85em;
+  line-height: 2.5em;
+  margin: 0 25px;
+}
+.app-footer__sitemap span {
+  color: #838893;
+  font-weight: 500;
+  padding: 0 0 25px;
+  text-transform: uppercase;
+}
+
+.app-footer__bottom {
+  background: #222732;
+}
+.app-footer__bottom .app-container {
+  display: flex;
+  justify-content: space-between;
+}
+.app-footer__bottom-copyright {
+  color: #626772;
+  font-size: 0.875em;
+  line-height: 75px;
+}
+
+.app__to-top {
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+  bottom: -100px;
+  color: #ffffff;
+  cursor: pointer;
+  height: 40px;
+  overflow: hidden;
+  position: fixed;
+  right: 25px;
+  transition: bottom 0.25s ease;
+  width: 40px;
+  z-index: 905;
+}
+.app__to-top.active {
+  bottom: 25px;
+}
+.app__to-top span {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  transition: transform 0.25s ease;
+  width: 100%;
+}
+.app__to-top:hover span {
+  transform: translateY(-100%);
+}
+
+
+// -----------------------------------------------------------------------------
+// App Contact
+//
+
+.app-contact {
+  background: #ffffff;
+  bottom: 25px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+  left: -500px;
+  position: fixed;
+  transition: left 0.25s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  width: calc(100% - 25px);
+  max-width: 400px;
+  z-index: 900;
+}
+.app-contact.active {
+  left: 25px;
+}
+.app-contact__header {
+  align-items: center;
+  background: $red-500;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.app-contact__header button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+}
+
+.app-contact__form {
+  padding: 0 15px;
+}
+.app-contact__form-input {
+  padding: 15px 0;
+}
+.app-contact__form-input input {
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom: 1px solid #d4d4d4;
+  box-sizing: border-box;
+  font-size: 1em;
+  outline: none;
+  padding: 7px 0;
+  transition: border 0.25s ease;
+  width: 100%;
+}
+.app-contact__form-input input:focus,
+.app-contact__form-input textarea:focus {
+  border-color: $red-700;
+  color: $red-700;
+}
+.app-contact__form-input textarea {
+  border: 1px solid #d4d4d4;
+  box-sizing: border-box;
+  font-size: 1em;
+  height: 150px;
+  outline: none;
+  padding: 7px;
+  resize: none;
+  transition: border 0.25s ease;
+  width: 100%;
+}
+.app-contact__form-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px 0;
+}
+.app-contact__form-actions button {
+  background: none;
+  border: none;
+  border-radius: 3px;
+  color: #000000;
+  cursor: pointer;
+  margin: 0 0 0 10px;
+  outline: none;
+  padding: 10px 25px;
+  transition: background 0.25s ease;
+  &:first-child:hover {
+    background: rgba(0, 0, 0, 0.25);
+  }
+
+  &:last-child {
+    background: $red-700;
+    color: #ffffff;
+
+    &:hover {
+      background: $red-500;
+    }
+  }
+}
+
+
+.app-menu {
+  background: rgba(0, 0, 0, 0.85);
+  display: none;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 50%;
+  min-width: 300px;
+}

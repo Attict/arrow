@@ -1,0 +1,180 @@
+<header #header class="app-header">
+  <!-- TOP -->
+  <div class="app-header__top">
+    <div class="app-container">
+      <div class="app-header__top-social">
+        <ul>
+          <li><a><img src="/assets/images/facebook.png" alt="Facebook"></a></li>
+          <li><a><img src="/assets/images/twitter.png" alt="Twitter"></a></li>
+          <li><a><img src="/assets/images/linkedin.png" alt="LinkedIn"></a></li>
+        </ul>
+      </div>
+      <div class="app-header__top-contact">
+        <span>
+          <a (click)="toggleContact(true)">
+            <i class="material-icons">mail</i>
+            Have a question?  Click here to contact.
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header Navigation -->
+  <div #headerNav class="app-header__nav">
+    <div class="app-container">
+      <div class="app-header__nav-menu">
+        <ul>
+          <li><a><img src="/assets/images/logo_red.png" alt="Logo"></a></li>
+          <li><a (click)="goTo(RoutePaths.homepage.toUrl())">Home</a></li>
+          <li><a (click)="goTo(RoutePaths.homepage.toUrl())">Blog</a></li>
+          <li><a (click)="goTo(RoutePaths.homepage.toUrl())">Forum</a></li>
+          <li><a>TODO: Popup Menu</a></li>
+        </ul>
+      </div>
+      <div class="app-header__nav-options">
+        <ul class="app-header__nav-options__list">
+          <li><a><i class="material-icons">search</i></a></li>
+          <li #headerUser>
+            <a (click)="toggleHeaderUser()">
+              <i class="material-icons">account_circle</i>
+            </a>
+            <div class="app-header__user">
+              <!-- User Menu - For Guests -->
+              <ul *ngIf="!isLoggedIn">
+                <li>
+                  <button class="app-header__user-button"
+                      (click)="goTo(RoutePaths.homepage.toUrl())">Sign In</button>
+                </li>
+                <li>
+                  <a><i class="material-icons">person</i> Create an Account</a>
+                </li>
+                <li>
+                  <a><i class="material-icons">help</i> Need help?</a>
+                </li>
+              </ul>
+
+              <!-- User Menu - For logged in Users -->
+              <ul *ngIf="isLoggedIn">
+                <li>
+                  <a><i class="material-icons">person</i> My Profile</a>
+                </li>
+                <li>
+                  <a href="/admin/"><i class="material-icons">dns</i> Admin</a>
+                </li>
+                <li>
+                  <button class="app-header__user-button"
+                      (click)="logout()">Sign Out</button>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<nav class="app-nav">
+</nav>
+
+
+<main>
+  <router-outlet [routes]="Routes.all"></router-outlet>
+
+  <div class="app-footer" *ngIf="showFooter()">
+    <div class="app-footer__message">
+      <div class="app-container">
+        <i class="material-icons">send</i>
+        <span>Get in touch by sending us a message.</span>
+        <a (click)="toggleContact(true)">Contact Us</a>
+      </div>
+    </div>
+
+    <div class="app-footer__sitemap">
+      <div class="app-container">
+        <ul>
+          <li><span>Products</span></li>
+          <li>First</li>
+          <li>Second</li>
+          <li>Third</li>
+        </ul>
+        <ul>
+          <li><span>Get To Know Us</span></li>
+          <li>Blog</li>
+          <li>About</li>
+          <li>Contact</li>
+        </ul>
+        <ul>
+          <li><span>Privacy &amp; Legal</span></li>
+          <li>Privacy Policy</li>
+          <li>Legal</li>
+        </ul>
+        <ul>
+          <li>Logo</li>
+          <li>(123) 456-7890</li>
+          <li>1234 Address Street</li>
+          <li>City, State 12345</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="app-footer__bottom">
+      <div class="app-container">
+        <div class="app-footer__bottom-social">
+
+        </div>
+        <div class="app-footer__bottom-copyright">
+          &copy; example.com 2019+
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div #toTop class="app__to-top" (click)="scrollToTop()">
+  <span><i class="material-icons">keyboard_arrow_up</i></span>
+  <span><i class="material-icons">keyboard_arrow_up</i></span>
+</div>
+
+<div #contactPopup class="app-contact">
+  <div class="app-contact__header">
+    <span>Contact</span>
+    <button (click)="toggleContact(false)">
+      <i class="material-icons">close</i>
+    </button>
+  </div>
+  <div class="app-contact__form">
+    <!--<form (submit)="contactSubmit($event)">
+      <div class="app-contact__form-input">
+        <input [(ngModel)]="contactController.message.from"
+          type="text" required placeholder="Name">
+      </div>
+      <div class="app-contact__form-input">
+        <input [(ngModel)]="contactController.message.email"
+          type="email" placeholder="Email" required>
+      </div>
+      <div class="app-contact__form-input">
+        <input [(ngModel)]="contactController.message.subject"
+          type="text" placeholder="Subject" required>
+      </div>
+      <div class="app-contact__form-input">
+        <textarea [(ngModel)]="contactController.message.message"
+          placeholder="Message" required></textarea>
+      </div>
+      <div class="app-contact__form-actions">
+        <button type="button" (click)="contactController.clear()">Clear</button>
+        <button>Send</button>
+      </div>
+    </form>-->
+  </div>
+</div>
+
+<div #menuPopup class="app-menu">
+  <ul>
+    <li>
+
+    </li>
+  </ul>
+</div>

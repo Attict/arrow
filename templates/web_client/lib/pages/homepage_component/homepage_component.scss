@@ -1,0 +1,217 @@
+@import 'package:web_client/theme';
+
+.homepage-container {
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0 25px;
+  max-width: 1200px;
+}
+
+.homepage-banner {
+  align-items: center;
+  //background: linear-gradient(45deg, $red-500 50%, $red-700 50%);
+  background: url('/assets/images/material_bg.png') fixed no-repeat center;
+  background-size: cover;
+  display: flex;
+  height: 400px;
+  justify-content: center;
+  //padding: 50px 0 0;
+}
+.homepage-banner span {
+  background: #ffffff;
+  border-radius: 50px;
+  font-size: 2em;
+  padding: 25px 50px;
+}
+
+.homepage-section .homepage-container {
+  padding: 75px 25px;
+  text-align: center;
+}
+
+.homepage-section {
+  overflow: hidden;
+}
+.homepage-section span {
+  font-size: 1.25em;
+  font-weight: 600;
+  line-height: 2em;
+}
+.homepage-section p {
+  line-height: 2em;
+}
+
+.homepage-section__color {
+  background: $red-500;
+  color: #ffffff;
+}
+.homepage-quote h3 {
+  font-size: 1.5em;
+  font-weight: 500;
+  line-height: 1.75em;
+  padding: 0 0 15px;
+  position: relative;
+  text-align: center;
+}
+.homepage-quote h3::before {
+  color: $red-300;
+  content: '“';
+  font-size: 4em;
+  font-weight: 600;
+  left: -30px;
+  position: absolute;
+}
+.homepage-quote h3::after {
+  color: $red-300;
+  content: '”';
+  font-size: 4em;
+  font-weight: 600;
+  position: absolute;
+  right: -30px;
+}
+.homepage-quote span {
+  color: $red-300;
+  display: block;
+  font-size: 1em;
+  font-weight: 600;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  text-transform: uppercase;
+}
+
+.homepage-list__column {
+  display: flex;
+}
+.homepage-list__column li {
+  padding: 0 25px;
+  text-align: left;
+}
+
+.homepage-image__first {
+  background: url('/assets/images/material_bg.png') fixed no-repeat center;
+  background-size: cover;
+  overflow: hidden;
+  position: relative;
+}
+//.homepage-image__first::after {
+//  background: rgba(0, 0, 0, 0.5);
+//  content: '';
+//  display: block;
+//  height: 100%;
+//  left: 0;
+//  position: absolute;
+//  top: 0;
+//  width: 100%;
+//}
+
+.homepage-image__first .homepage-container {
+  position: relative;
+  z-index: 1;
+}
+
+.homepage__transparent-cards {
+  display: flex;
+  flex-flow: row wrap;
+}
+.homepage__transparent-cards li {
+  align-items: center;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: #ffffff;
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1 1 30%;
+  margin: 10px;
+  padding: 25px;
+  min-width: 300px;
+}
+.homepage__transparent-cards span {
+  align-items: center;
+  background: $red-500;
+  border-radius: 50%;
+  display: inline-flex;
+  height: 65px;
+  justify-content: center;
+  width: 65px;
+}
+.homepage__transparent-cards span i {
+  font-size: 1.5em;
+}
+.homepage__transparent-cards p {
+  padding: 25px 0;
+}
+.homepage__transparent-cards a {
+  border: 1px solid #ffffff;
+  display: block;
+  margin: auto 0 0;
+  padding: 10px 0;
+  transition: all 0.25s ease;
+  width: 100%;
+}
+.homepage__transparent-cards a:hover {
+  background: #ffffff;
+}
+
+
+.homepage-blog__title {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+}
+.homepage-blog__title h4 {
+  font-size: 1.25em;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+.homepage-blog__title a {
+  font-size: 1.25em;
+  font-weight: 400;
+}
+.homepage-blog__list {
+  text-align: left;
+}
+.homepage-blog__list-item {
+  align-items: center;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  display: flex;
+  height: 200px;
+  margin: 25px 0;
+}
+.homepage-blog__list-item section {
+  flex: 1 1 auto;
+  padding: 0 25px;
+}
+.homepage-blog__list-item h3 {
+  font-size: 1.25em;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+}
+.homepage-blog__list-item span {
+  font-size: 0.925em;
+  font-weight: 400;
+}
+.homepage-blog__list-item p {
+  line-height: 1.5em;
+  padding: 25px 0 15px;
+}
+
+.homepage-blog__list-item__image {
+  align-items: center;
+  background: radial-gradient($red-700 0%, $red-900 100%);
+  border-right: 1px solid #e4e4e4;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  display: flex;
+  flex: 0 0 325px;
+  height: 100%;
+  overflow: hidden;
+  img {
+    min-height: 100%;
+    width: 100%;
+  }
+}
+

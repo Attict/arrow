@@ -1,0 +1,65 @@
+@import 'package:web_admin/theme';
+
+.top {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  .top__left {
+    flex: 1 1 auto;
+  }
+  .top__right {
+    flex: 0 0 auto;
+  }
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  table-layout: fixed;
+  user-select: none;
+  width: 100%;
+
+  tr {
+    cursor: pointer;
+  }
+
+  tr th {
+    @include mat-font-caption;
+    color: inherit !important;
+    font-size: 12px;
+    height: 40px;
+    text-align: left;
+    text-transform: lowercase;
+  }
+
+  tr th,
+  tr td {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  }
+
+  tr td {
+    @include mat-font-body;
+    color: inherit !important;
+    height: 40px;
+  }
+
+  .table-header__arrow {
+    @include material-icon-size(10px);
+  }
+
+  .table__arrow-icon {
+    padding: 0 0 0 10px;
+  }
+
+  .table__select-column {
+    width: 50px;
+  }
+
+}
+
+.table__id {
+  width: 50px;
+}
+
+

@@ -1,0 +1,35 @@
+<div class="mdc-card theme-card theme-card__padded">
+  <div class="theme-card__top">
+    <material-input #filterInput
+      leadingGlyph="filter_list"
+      label="Filter"
+      type="text"></material-input>
+    <!-- BUTTON -->
+    <material-button class="blue" [routerLink]="goTo()" raised>
+      Add Armor
+    </material-button>
+  </div>
+
+  <table class="theme-table">
+    <thead>
+      <tr>
+        <th (click)="sort('id')">ID</th>
+        <th (click)="sort('item.name')">Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let a of bloc.armors | filterPipe: filter | sortPipe: sortField: sortDir"
+        [routerLink]="goTo(a.id)">
+        <td>
+          {{ a.id }}
+        </td>
+        <td>
+          {{ a.item.name }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+

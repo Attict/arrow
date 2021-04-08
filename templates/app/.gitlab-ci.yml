@@ -1,0 +1,12 @@
+stages:
+  - build
+  - test
+  - deploy
+
+job 1:
+  only:
+    - master
+    #- scheduled
+    #- web
+  stage: build
+  script: arrow build production

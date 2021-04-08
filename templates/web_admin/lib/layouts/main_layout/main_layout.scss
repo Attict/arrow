@@ -1,0 +1,89 @@
+@import 'package:web_admin/theme';
+
+:host {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  @include material-progress-theme(
+    $indeterminate-color: $blue-500,
+    $active-color: #cccccc,
+    $secondary-color: $green-900,
+  );
+}
+
+.material-content {
+  min-width: 400px;
+}
+
+
+.app-loading {
+  height: 4px;
+  left: 0;
+  position: fixed;
+  top: -11px;
+  width: 100%;
+  z-index: 900;
+}
+
+.app-notifications {
+  background: rgba(0, 5, 25, 0.75);
+  border-radius: 3px;
+  bottom: 25px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.89);
+  display: flex;
+  font-size: 0.875em;
+  padding: 10px;
+  position: fixed;
+  right: 25px;
+  width: 230px;
+  z-index: 899;
+
+  span {
+    text-transform: uppercase;
+  }
+
+  p {
+    margin: 0;
+    padding: 5px 0;
+  }
+
+}
+
+material-dialog {
+  material-button {
+    margin: 0 0 0 10px;
+  }
+}
+
+.controls {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-width {
+  @include mat-drawer-width(50%);
+  @include mat-temporary-drawer-width(50%);
+}
+
+.logo {
+  background-position: center;
+  background-size: auto 50%;
+  opacity: 0.75;
+}
+
+main {
+  box-sizing: border-box;
+  height: calc(100vh - 65px);
+  overflow-y: scroll;
+  padding: 25px;
+  min-width: 400px;
+}
+
+
+material-drawer material-list {
+  overflow-y: scroll;
+}

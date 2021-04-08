@@ -1,0 +1,244 @@
+<form *ngIf="bloc.c != null && form != null" [ngFormModel]="form">
+  <div class="mdc-card theme-card theme-card__padded">
+    <!--
+      TOP
+    -->
+    <div class="theme-card__top">
+      <!-- Left -->
+      <div class="theme-card__top-actions__left">
+        <material-button icon materialTooltip="Help">
+          <material-icon icon="info"></material-icon>
+        </material-button>
+      </div>
+      <!-- Right -->
+      <div class="theme-card__top-actions__right">
+        <div>
+          <material-button raised class="red"
+            *ngIf="bloc.c.id != null"
+            (trigger)="delete()">Delete</material-button>
+          <material-button raised class="blue"
+            [disabled]="form.invalid"
+            (trigger)="save()">Save</material-button>
+        </div>
+      </div>
+    </div>
+
+    <!--
+      CONTENT
+    -->
+    <div class="theme-card__content">
+      <!-- Name -->
+      <div class="form-item">
+        <material-input floatingLabel
+          type="text"
+          label="Name"
+          leadingGlyph="label"
+          formControlName="name"
+          ngControl="name"></material-input>
+      </div>
+
+      <!-- Description -->
+      <div class="form-item">
+        <material-input floatingLabel multiline
+          rows="2"
+          label="Description"
+          leadingGlyph="label"
+          formControlName="desc"
+          ngControl="desc"></material-input>
+      </div>
+
+      <h3>Hit Dice</h3>
+      <div class="form-item">
+        <material-dropdown-select
+          class="class__hit-dice"
+          popupMaxWidth="100%"
+          [buttonText]="'1d' + (bloc.c.hp?.toString() ?? '0')">
+          <material-select-dropdown-item
+            *ngFor="let i of bloc.hpOptions"
+            (trigger)="bloc.c.hp = i">
+            1d{{i}}
+          </material-select-dropdown-item>
+        </material-dropdown-select>
+        <material-input floatingLabel
+          type="number"
+          label="Number of Skills"
+          leadingGlyph="label"
+          formControlName="numOfSkills"
+          ngControl="numOfSkills"></material-input>
+      </div>
+
+      <!-- Saving Throws -->
+      <h3>Saving Throws</h3>
+      <div class="form-item">
+        <section>
+          <material-checkbox label="STR"
+            [(ngModel)]="bloc.c.saveStr"></material-checkbox>
+          <material-checkbox label="DEX"
+            [(ngModel)]="bloc.c.saveDex"></material-checkbox>
+          <material-checkbox label="CON"
+            [(ngModel)]="bloc.c.saveCon"></material-checkbox>
+          <material-checkbox label="INT"
+            [(ngModel)]="bloc.c.saveInt"></material-checkbox>
+          <material-checkbox label="WIS"
+            [(ngModel)]="bloc.c.saveWis"></material-checkbox>
+          <material-checkbox label="CHA"
+            [(ngModel)]="bloc.c.saveCha"></material-checkbox>
+        </section>
+      </div>
+
+      <h3>Skills Available</h3>
+      <div class="form-item">
+        <section>
+          <material-checkbox *ngFor="let s of bloc.skills; let i = index"
+            [label]="s.name"
+            [(ngModel)]="bloc.selectedSkills[i]"></material-checkbox>
+        </section>
+      </div>
+
+      <!-- Proficiencies -->
+      <div class="form-header">
+        <h3>Proficiencies</h3>
+        <material-button icon materialTooltip="Add Proficiency"
+          (click)="bloc.c.proficiencyIds.add(0)">
+          <material-icon icon="add"></material-icon>
+        </material-button>
+      </div>
+      <div class="form-item proficiencies">
+        <div class="form-item__flex"
+          *ngFor="let fid of bloc.c.proficiencyIds; let i = index">
+          <material-dropdown-select
+            popupMaxWidth="100%"
+            [buttonText]="getProficiencyName(i) ?? 'Select Proficiency'">
+            <material-select-dropdown-item
+              *ngFor="let p of bloc.proficiencies"
+              (trigger)="bloc.c.proficiencyIds[i] = p.id">
+              {{p.name}}
+            </material-select-dropdown-item>
+          </material-dropdown-select>
+          <material-button icon materialTooltip="Add Proficiency" class="red"
+            (click)="bloc.c.proficiencyIds.removeAt(i)">
+            <material-icon icon="remove"></material-icon>
+          </material-button>
+        </div>
+      </div>
+
+      <!-- Feats -->
+      <div class="form-header">
+        <h3>Feats</h3>
+        <material-button icon materialTooltip="Add Feat"
+          (click)="addFeat()">
+          <material-icon icon="add"></material-icon>
+        </material-button>
+      </div>
+      <div class="feats">
+        <div class="feats__item" *ngFor="let f of bloc.c.feats; let i = index"
+          [class.collapsed]="featsCollapsed[i]">
+          <div class="feats__item-top">
+            <span>{{f.name}}</span>
+            <div>
+              <material-button icon materialTooltip="Remove Feat" class="red"
+                (click)="removeFeat(i)">
+                <material-icon icon="remove"></material-icon>
+              </material-button>
+              <material-button icon materialTooltip="Toggle Collapse"
+                (click)="featsCollapsed[i] = !featsCollapsed[i]">
+                <material-icon [icon]="featsCollapsed[i] ? 'keyboard_arrow_down' : 'keyboard_arrow_up'"></material-icon>
+              </material-button>
+            </div>
+          </div>
+          <div>
+            <!-- Name -->
+            <div class="form-item">
+              <material-input floatingLabel
+                type="text"
+                label="Name"
+                leadingGlyph="label"
+                [(ngModel)]="f.name"></material-input>
+            </div>
+
+            <!-- Description -->
+            <div class="form-item">
+              <material-input floatingLabel multiline
+                rows="2"
+                label="Description"
+                leadingGlyph="label"
+                [(ngModel)]="f.desc"></material-input>
+            </div>
+
+            <!-- Level -->
+            <h3>Level Required</h3>
+            <div class="form-item">
+              <material-dropdown-select
+                popupMaxWidth="100%"
+                [buttonText]="f.level?.toString() ?? 'Select Level'">
+                <material-select-dropdown-item
+                  *ngFor="let i of levels"
+                  (trigger)="f.level = i">
+                  {{i}}
+                </material-select-dropdown-item>
+              </material-dropdown-select>
+            </div>
+
+            <div class="form-header">
+              <h3>Modifiers</h3>
+              <material-button icon materialTooltip="Add Modifier"
+                (click)="f.mods.add(DndModifier())">
+                <material-icon icon="add"></material-icon>
+              </material-button>
+            </div>
+            <div class="modifier"
+              *ngFor="let mod of f.mods; let i = index">
+              <material-button icon materialTooltip="Remove Modier" class="red"
+                (click)="f.mods.removeAt(i)">
+                <material-icon icon="remove"></material-icon>
+              </material-button>
+              <!-- Type -->
+              <material-dropdown-select
+                popupMaxWidth="100%"
+                [buttonText]="DndModifier.typeValues[mod.type] ?? 'Select Type'">
+                <material-select-dropdown-item
+                  *ngFor="let k of DndModifier.typeValues.keys"
+                  (trigger)="mod.type = k">
+                  {{DndModifier.typeValues[k]}}
+                </material-select-dropdown-item>
+              </material-dropdown-select>
+
+              <!-- SubType : Attr -->
+              <material-dropdown-select
+                *ngIf="mod.type == DndModifier.typeAttr"
+                popupMaxWidth="100%"
+                [buttonText]="DndModifier.subtypeValues[mod.subtype] ?? 'Select Attribute'">
+                <material-select-dropdown-item
+                  *ngFor="let k of DndModifier.subtypeValues.keys"
+                  (trigger)="mod.subtype = k">
+                  {{DndModifier.subtypeValues[k]}}
+                </material-select-dropdown-item>
+              </material-dropdown-select>
+
+              <!-- SubType : Skills -->
+              <material-dropdown-select
+                *ngIf="mod.type == DndModifier.typeSkill"
+                popupMaxWidth="100%"
+                [buttonText]="bloc.getSkillName(mod.subtype) ?? 'Select Skill'">
+                <material-select-dropdown-item
+                  *ngFor="let s of bloc.skills"
+                  (trigger)="mod.subtype = s.id">
+                  {{s.name}}
+                </material-select-dropdown-item>
+              </material-dropdown-select>
+
+              <!-- Value -->
+              <material-input floatingLabel
+                type="number"
+                label="Value"
+                leadingGlyph="label"
+                [(ngModel)]="mod.value"></material-input>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>
